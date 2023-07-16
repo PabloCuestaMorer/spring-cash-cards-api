@@ -1,37 +1,31 @@
+# General exclusions
 HELP.md
 .gradle
 build/
+bin/
+out/
+
+# Gradle-specific inclusions
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### STS ###
+# STS-specific inclusions
 .apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
 .sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 
-### IntelliJ IDEA ###
+# IntelliJ IDEA-specific inclusions
 .idea
 *.iws
 *.iml
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
-### NetBeans ###
+# NetBeans-specific inclusions
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+# VS Code-specific exclusion
 .vscode/
