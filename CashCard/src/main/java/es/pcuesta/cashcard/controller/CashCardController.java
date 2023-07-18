@@ -33,4 +33,9 @@ public class CashCardController {
         Optional<CashCard> cashCardOptional = cashCardRepository.findById(requestedId);
         return cashCardOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping()
+    public ResponseEntity<Iterable<CashCard>> findAll() {
+        return ResponseEntity.ok(cashCardRepository.findAll());
+    }
 }
