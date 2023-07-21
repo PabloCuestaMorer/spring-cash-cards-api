@@ -43,6 +43,7 @@ class CashCardApplicationTests {
 
     @Test
     @DirtiesContext
+        //close the context and recreate it for later tests
     void shouldCreateANewCashCard() {
         // The database will create and manage all unique CashCard.id values for us. We should not provide one.
         CashCard cashCard = new CashCard(44L, 250.00);
@@ -75,5 +76,43 @@ class CashCardApplicationTests {
 
         JSONArray amounts = documentContext.read("$..amount");
         assertThat(amounts).containsExactlyInAnyOrder(123.45, 1.0, 150.00);
+    }
+
+    @Test
+    void shouldReturnAPageOfCashCards() {
+        ResponseEntity<String> response = restTemplate.getForEntity("/cashcards?page=0&size=1", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        DocumentContext documentContext = JsonPath.parse(response.getBody());
+        //matches all of the elements in the JSON array
+        JSONArray cashCards = documentContext.read("$[*]");
+        assertThat(cashCards.size()).isEqualTo(1);
+    }
+
+    @Test
+    void shouldReturnASortedPageOfCashCards() {
+        ResponseEntity<String> response = restTemplate.getForEntity("/cashcards?page=0&size=1&sort=amount,desc", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        DocumentContext documentContext = JsonPath.parse(response.getBody());
+        JSONArray cashCards = documentContext.read("$[*]");
+        assertThat(cashCards.size()).isEqualTo(1);
+
+        // Take the first JSON element, the first card>amount ("$[0].amount")
+        double amount = documentContext.read("$[0].amount");
+        assertThat(amount).isEqualTo(150.00);
+    }
+
+    @Test
+    void shouldReturnASortedPageOfCashCardsWithNoParametersAndUseDefaultValues() {
+        ResponseEntity<String> response = restTemplate.getForEntity("/cashcards", String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        DocumentContext documentContext = JsonPath.parse(response.getBody());
+        JSONArray cashCards = documentContext.read("$[*]");
+        assertThat(cashCards.size()).isEqualTo(3);
+
+        JSONArray amounts = documentContext.read("$..amount");
+        assertThat(amounts).containsExactly(1.00, 123.45, 150.00);
     }
 }
