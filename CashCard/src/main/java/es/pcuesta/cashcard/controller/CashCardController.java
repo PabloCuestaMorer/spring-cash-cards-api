@@ -52,7 +52,7 @@ public class CashCardController {
     }
 
     @PutMapping("/{requestedId}")
-    private ResponseEntity<Void> putCashCard(@PathVariable Long requestedId, @RequestBody CashCard cashCardUpdate) {
+    public ResponseEntity<Void> update(@PathVariable Long requestedId, @RequestBody CashCard cashCardUpdate) {
         Optional<CashCard> cashCardOptional = cashCardRepository.findById(requestedId);
 
         if (cashCardOptional.isPresent()) {
@@ -65,7 +65,7 @@ public class CashCardController {
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> deleteCashCard(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (cashCardRepository.existsById(id)) {
             cashCardRepository.deleteById(id);
             return ResponseEntity.noContent().build();
