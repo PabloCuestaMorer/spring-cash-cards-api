@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  app:
+    image: cash-card-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/db_cashcard
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - db
+  db:
+    image: 'mysql:8.0'
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=db_cashcard
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
