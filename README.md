@@ -1,5 +1,11 @@
 # Family Cash Card
 
+**Table of Contents**
+- [Getting Started](#getting-started)
+- [Testing](#testing)
+- [Keywords](#keywords)
+- [Author](#author)
+
 This is a simple Spring Boot application that allows parents to manage allowance funds for their children. The application uses a RESTful API to allow parents to create, edit, delete, and view cash cards. The application is also secured with Spring Security to protect it from unauthorized access.
 
 The goal of the project was to learn how to use Spring Boot to build a RESTful API.
@@ -49,4 +55,5 @@ Unit tests have been included in the project to ensure the reliability and corre
 - Family
 - Kids
 
-## By Pablo Cuesta Morer
+## Author
+This project is maintained by [Pablo Cuesta Morer](https://github.com/PabloCuestaMorer).
