@@ -2,7 +2,6 @@ package es.pcuesta.cashcard.controller;
 
 import es.pcuesta.cashcard.entity.CashCard;
 import es.pcuesta.cashcard.repository.CashCardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +18,8 @@ import java.util.Optional;
 @RequestMapping("/cashcards")
 public class CashCardController {
     private final CashCardRepository cashCardRepository;
-
-    @Autowired
-    public CashCardController(final CashCardRepository repository) {
-        this.cashCardRepository = repository;
+    public CashCardController(CashCardRepository cashCardRepository) {
+        this.cashCardRepository = cashCardRepository;
     }
 
     @PostMapping
