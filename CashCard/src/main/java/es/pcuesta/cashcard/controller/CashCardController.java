@@ -1,6 +1,7 @@
 package es.pcuesta.cashcard.controller;
 
 import es.pcuesta.cashcard.entity.CashCard;
+import es.pcuesta.cashcard.exception.CashCardNotFoundException;
 import es.pcuesta.cashcard.repository.CashCardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,7 +35,8 @@ public class CashCardController {
     @GetMapping("/{requestedId}")
     public ResponseEntity<CashCard> findById(@PathVariable Long requestedId) {
         Optional<CashCard> cashCardOptional = cashCardRepository.findById(requestedId);
-        return cashCardOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return cashCardOptional.map(ResponseEntity::ok).
+                orElseThrow(() -> new CashCardNotFoundException("Cash Card not found with id: " + requestedId));
     }
 
     @GetMapping
